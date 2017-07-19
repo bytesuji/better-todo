@@ -7,7 +7,8 @@
 #include <vector>
 
 using std::string;
-using std::cout, std::endl;
+using std::vector;
+using std::cout, std::cin, std::endl;
 
 struct todo_item {
 	string name;
@@ -34,7 +35,7 @@ public:
 	void del(unsigned n) {
 		cout << "Are you sure you want to delete task #" << n << "? ";
 		char resp;
-		cin << resp;
+		cin >> resp;
 		if (resp != 'y')
 			return;	
 
