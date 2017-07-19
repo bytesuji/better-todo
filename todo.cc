@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <SFML/Audio.hpp>
 #include "todo.h"
 #include "serial.h"
 
@@ -31,6 +32,10 @@ void check_input(const char* msg, T& data) {
 }
 
 int main() {
+	sf::Music song;
+	song.openFromFile("data.ogg");
+	song.play();	
+	
 	todo_list LIST;
 	try {LIST = serial::load<todo_list>(".tasks.lance");}
 	catch (boost::archive::archive_exception e) {
