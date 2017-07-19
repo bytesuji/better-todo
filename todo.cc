@@ -59,9 +59,16 @@ int main() {
 			getline(cin, name);
 			cout << "Description: ";
 			getline(cin, desc);
-			cout << "Priority: ";
-			while (!(cin >> prior))
+			while (true) {
 				cout << "Priority: ";
+				cin >> prior;
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore();
+                }
+				else
+					break;
+            }	
 
 			LIST.add(name, desc, prior);
         }	
