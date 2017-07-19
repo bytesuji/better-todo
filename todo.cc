@@ -24,17 +24,22 @@ int main() {
 	while (cin >> cmd) {
 		to_lower(cmd);
 		if (!(cmd == "add" || 
+			  cmd == "a" || 
 			  cmd == "del" ||
+			  cmd == "d" ||
 			  cmd == "pri" || 
+			  cmd == "p" ||
 			  cmd == "delete" ||
 			  cmd == "show" || 
+			  cmd == "s" ||
 			  cmd == "showtask" || 
 			  cmd == "st" ||
 			  cmd == "prioritize" || 
 			  cmd == "quit" || 
+			  cmd == "q" ||
 			  cmd == "DEFAULT_STRING_STATE")) { cerr << "Not a command.\n"; cout << " > "; continue; }
 
-		if (cmd == "add") {
+		if (cmd == "add" || cmd == "a") {
 			string name;
 			string desc;
 			unsigned prior;
@@ -50,14 +55,14 @@ int main() {
 			LIST.add(name, desc, prior);
         }	
 
-		else if (cmd == "del" || cmd == "delete") {
+		else if (cmd == "del" || cmd == "delete" || cmd == "d") {
 			unsigned num;
 			cout << "Which task? ";
 			cin >> num;
 			LIST.del(num);
         }
 
-		else if (cmd == "pri" || cmd == "prioritize") {
+		else if (cmd == "pri" || cmd == "prioritize" || cmd == "p") {
 			unsigned num;
 			unsigned p;
 			cout << "Which task? ";
@@ -68,11 +73,15 @@ int main() {
 			LIST.prioritize(num, p);
         }
 
+		else if (cmd == "show" || cmd == "s") {
+			LIST.show();
+        }
+
 		else if (cmd == "showtask" || cmd == "st") {
 			unsigned num;
 			cout << "Which task? ";
 			cin >> num;
-			LIST.show(num);
+			LIST.showtask(num);
         }
 
 		else if (cmd == "quit") {

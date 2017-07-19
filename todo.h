@@ -71,7 +71,15 @@ public:
 		main_list.at(n).priority = prior;
     }
 
-	void show(unsigned n) {
+	void show() {
+		unsigned cnt = 0;
+		for (auto t: main_list) {
+			cout << cnt << ". " << t.name << endl;	
+			++cnt;
+        }
+    }
+
+	void showtask(unsigned n) {
 		cout << main_list.at(n);
     }
 };
