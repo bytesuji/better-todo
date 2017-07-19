@@ -37,9 +37,10 @@ int main() {
 			unsigned prior;
 			
 			cout << "Task name: ";
-			cin >> name;
+			cin.ignore();
+			getline(cin, name);
 			cout << "Description: ";
-			cin >> desc;	
+			getline(cin, desc);
 			cout << "Priority: ";
 			cin >> prior;
 
