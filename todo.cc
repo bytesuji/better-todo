@@ -60,7 +60,8 @@ int main() {
 			cout << "Description: ";
 			getline(cin, desc);
 			cout << "Priority: ";
-			cin >> prior;
+			while (!(cin >> prior))
+				cout << "Priority: ";
 
 			LIST.add(name, desc, prior);
         }	
