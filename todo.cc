@@ -7,6 +7,7 @@
 using std::cout; 
 using std::cerr;
 using std::cin;
+using std::getline;
 using std::endl;
 using std::string;
 using std::transform;
@@ -31,21 +32,23 @@ void check_input(const char* msg, T& data) {
 
 int main() {
 	todo_list LIST;
-	try {
-		LIST = serial::load<todo_list>(".tasks.lance");
-    }
-
+	try {LIST = serial::load<todo_list>(".tasks.lance");}
 	catch (boost::archive::archive_exception e) {
 		serial::dump(LIST, ".tasks.lance");
     }
 
 	string cmd = "DEFAULT_STRING_STATE";
 
-	cout << "TODO\n";
-	cout << "-----\n";
+	cout << "TODO" << endl;
+	cout << "-----" << endl;
 	cout << " > ";
 
-	while (cin >> cmd) {
+	while (getline(cin, cmd)) {
+		if (cmd.empty()) {
+			cout << " > ";
+			continue;
+        }		
+
 		to_lower(cmd);
 		if (!(cmd == "add" || 
 			  cmd == "a" || 
@@ -61,7 +64,7 @@ int main() {
 			  cmd == "prioritize" || 
 			  cmd == "quit" || 
 			  cmd == "q" ||
-			  cmd == "DEFAULT_STRING_STATE")) { cerr << "Not a command.\n"; cout << " > "; continue; }
+			  cmd == "DEFAULT_STRING_STATE")) { cerr << "Not a command." << endl; cout << " > "; continue; }
 
 		if (cmd == "add" || cmd == "a") {
 			string name;
@@ -69,19 +72,20 @@ int main() {
 			unsigned prior;
 			
 			cout << "Task name: ";
-			cin.ignore();
 			getline(cin, name);
 			cout << "Description: ";
 			getline(cin, desc);
 			check_input("Priority: ", prior);
 
 			LIST.add(name, desc, prior);
+			cin.ignore();
         }	
 
 		else if (cmd == "del" || cmd == "delete" || cmd == "d") {
 			unsigned num;
 			check_input("Which task? ", num);
 			LIST.del(num);
+			cin.ignore();
         }
 
 		else if (cmd == "pri" || cmd == "prioritize" || cmd == "p") {
@@ -91,6 +95,7 @@ int main() {
 			check_input("Set priority to what? ", p);
 
 			LIST.prioritize(num, p);
+			cin.ignore();
         }
 
 		else if (cmd == "show" || cmd == "s") {
@@ -102,14 +107,15 @@ int main() {
 			check_input("Which task? ", num);
 
 			LIST.showtask(num);
+			cin.ignore();
         }
 
-		else if (cmd == "quit") {
+		else if (cmd == "quit" || cmd == "q") {
 			break;
         }
 
 		else {
-			cout << "Command not yet implemented.\n";
+			cout << "Command not yet implemented." << endl;
         }
 
 		serial::dump(LIST, ".tasks.lance");
