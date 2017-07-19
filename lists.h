@@ -1,5 +1,5 @@
-#ifndef TODO_H
-#define TODO_H
+#ifndef LISTS_H
+#define LISTS_H
 
 #include <string>
 #include <iostream>
@@ -20,6 +20,7 @@ using std::string;
 using std::vector;
 using std::cout;
 using std::cin;
+using std::cerr;
 using std::endl;
 using std::ostream;
 
@@ -55,7 +56,7 @@ string colorize(const todo_item& ti) {
 		return CYAN;
 	else if (ti.priority == 4)
 		return BLUE;
-	else if (ti.priority >= 5)
+	else 
 		return MAGENTA;
 }
 
@@ -65,11 +66,20 @@ private:
 	template <class Archive>
 	void serialize(Archive& ar, const unsigned version) {
 		ar & main_list;
+		ar & name;
     }
 
 	vector<todo_item> main_list;
 
 public:
+	string name;
+	string desc;
+
+	todo_list(string n, string d) {
+		name = n;
+		desc = d;
+    }
+
 	void add(string task, string description = "DEFAULT_DESC", unsigned prior = 3) {
 		if (description == "DEFAULT_DESC")
 			description = task; // make description same as task name if none specified
@@ -110,8 +120,42 @@ public:
     }
 };
 
-// TODO 
-// add color based on priority
-// overload output for item, list
+class list_collection {
+private:
+	SERIAL_ACCESS;
+	template <class Archive>
+	void serialize(Archive& ar, const unsigned version) {
+		ar & collection;
+    }
 
-#endif // TODO_H
+	vector<todo_list> collection;
+
+public:
+	todo_list at(unsigned num) {
+		return collection.at(num);
+    }
+
+	void add(string name, string desc) {
+		collection.push_back(todo_list(name, desc));	
+    }
+
+	void del(unsigned num) {
+		cout << "Are you sure you want to delete task #" << n << "? ";
+		char resp;
+		cin >> resp;
+		if (resp != 'y')
+			return;	
+
+		collection.erase(collection.begin() + num);
+    }
+
+	void show() {
+		unsigned cnt = 0;
+		for (auto list: collection) {
+			cout << cnt << ". " << list.name << endl;
+			++cnt;
+        }
+    }
+};
+
+#endif // LISTS_H
