@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <SFML/Audio.hpp>
+// #include <SFML/Audio.hpp>
 #include "todo.h"
 #include "serial.h"
 
@@ -32,14 +32,14 @@ void check_input(const char* msg, T& data) {
 }
 
 int main() {
-	sf::Music song;
-	song.openFromFile("data.ogg");
-	song.play();	
+	// sf::Music song;
+	// song.openFromFile("data.ogg");
+	// song.play();	
 	
 	todo_list LIST;
-	try {LIST = serial::load<todo_list>(".tasks.lance");}
+	try {LIST = serial::load<todo_list>("/home/albert/.tasks.lance");}
 	catch (boost::archive::archive_exception e) {
-		serial::dump(LIST, ".tasks.lance");
+		serial::dump(LIST, "/home/albert/.tasks.lance");
     }
 
 	string cmd = "DEFAULT_STRING_STATE";
@@ -57,18 +57,20 @@ int main() {
 		to_lower(cmd);
 		if (!(cmd == "add" || 
 			  cmd == "a" || 
+			  cmd == "delete" ||
 			  cmd == "del" ||
 			  cmd == "d" ||
+			  cmd == "prioritize" || 
 			  cmd == "pri" || 
 			  cmd == "p" ||
-			  cmd == "delete" ||
 			  cmd == "show" || 
 			  cmd == "s" ||
 			  cmd == "showtask" || 
 			  cmd == "st" ||
-			  cmd == "prioritize" || 
 			  cmd == "quit" || 
 			  cmd == "q" ||
+			  cmd == "help" ||
+			  cmd == "h" || 
 			  cmd == "DEFAULT_STRING_STATE")) { cerr << "Not a command." << endl; cout << " > "; continue; }
 
 		if (cmd == "add" || cmd == "a") {
@@ -113,6 +115,18 @@ int main() {
 
 			LIST.showtask(num);
 			cin.ignore();
+        }
+
+		else if (cmd == "h" || cmd == "help") {
+			cout << "\nAvailable commands:\n";
+			cout << "-------------------\n";
+			cout << "add, a\n";
+			cout << "delete, del, d\n";
+			cout << "prioritize, pri, p\n";
+			cout << "show, s\n";
+			cout << "showtask, st\n";
+			cout << "quit, q\n";
+			cout << "help, h\n\n";
         }
 
 		else if (cmd == "quit" || cmd == "q") {
