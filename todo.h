@@ -24,13 +24,14 @@ struct todo_item {
 	string name;
 	string description;
 	unsigned priority;	
-
 };
 
-ostream operator<<(ostream& out, const todo_item& item) {
+ostream& operator<<(ostream& out, const todo_item& item) {
 	out << "Name: " << item.name << endl;
 	out << "Description: " << item.description << endl;
 	out << "Priority: " << item.priority << endl;	
+
+	return out;
 }
 
 class todo_list {

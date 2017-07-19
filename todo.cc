@@ -13,7 +13,7 @@ void to_lower(string& str) {
 }
 
 int main() {
-	todo_list LIST;		
+	todo_list LIST = serial::load<todo_list>(".tasks.lance");
 	string cmd = "DEFAULT_STRING_STATE";
 	int arg;
 
@@ -28,7 +28,10 @@ int main() {
 			  cmd == "pri" || 
 			  cmd == "delete" ||
 			  cmd == "show" || 
+			  cmd == "showtask" || 
+			  cmd == "st" ||
 			  cmd == "prioritize" || 
+			  cmd == "quit" || 
 			  cmd == "DEFAULT_STRING_STATE")) { cerr << "Not a command.\n"; cout << " > "; continue; }
 
 		if (cmd == "add") {
@@ -65,11 +68,15 @@ int main() {
 			LIST.prioritize(num, p);
         }
 
-		else if (cmd == "show") {
+		else if (cmd == "showtask" || cmd == "st") {
 			unsigned num;
 			cout << "Which task? ";
 			cin >> num;
 			LIST.show(num);
+        }
+
+		else if (cmd == "quit") {
+			break;
         }
 
 		else {
