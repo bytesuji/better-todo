@@ -5,12 +5,21 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <boost/serialization/vector.hpp>
+#include "serial.h"
 
 using std::string;
 using std::vector;
 using std::cout, std::cin, std::endl;
 
 struct todo_item {
+	template <class Archive>
+	void serialize(Archive& ar, const unsigned version) {
+		ar & name;
+		ar & description;
+		ar & priority;
+    }
+
 	string name;
 	string description;
 	unsigned priority;	
@@ -18,6 +27,12 @@ struct todo_item {
 
 class todo_list {
 private:
+	SERIAL_ACCESS;
+	template <class Archive>
+	void serialize(Archive& ar, const unsigned version) {
+		ar & main_list;
+    }
+
 	vector<todo_item> main_list;
 
 public:
@@ -47,6 +62,7 @@ public:
 		main_list.at(n).priority = prior;
     }
 };
+
 
 // TODO 
 // add color based on priority
