@@ -15,6 +15,20 @@ void to_lower(string& str) {
 	transform(str.begin(), str.end(), str.begin(), ::tolower);
 }
 
+template <class T>
+void check_input(const char* msg, T& data) {
+	while (true) {
+		cout << msg;
+		cin >> data;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore();
+        }
+		else
+			break;
+    }
+}
+
 int main() {
 	todo_list LIST;
 	try {
@@ -59,34 +73,22 @@ int main() {
 			getline(cin, name);
 			cout << "Description: ";
 			getline(cin, desc);
-			while (true) {
-				cout << "Priority: ";
-				cin >> prior;
-				if (cin.fail()) {
-					cin.clear();
-					cin.ignore();
-                }
-				else
-					break;
-            }	
+			check_input("Priority: ", prior);
 
 			LIST.add(name, desc, prior);
         }	
 
 		else if (cmd == "del" || cmd == "delete" || cmd == "d") {
 			unsigned num;
-			cout << "Which task? ";
-			cin >> num;
+			check_input("Which task? ", num);
 			LIST.del(num);
         }
 
 		else if (cmd == "pri" || cmd == "prioritize" || cmd == "p") {
 			unsigned num;
 			unsigned p;
-			cout << "Which task? ";
-			cin >> num;
-			cout << "Set priority to what? ";
-			cin >> p;
+			check_input("Which task? ", num);
+			check_input("Set priority to what? ", p);
 
 			LIST.prioritize(num, p);
         }
@@ -97,8 +99,8 @@ int main() {
 
 		else if (cmd == "showtask" || cmd == "st") {
 			unsigned num;
-			cout << "Which task? ";
-			cin >> num;
+			check_input("Which task? ", num);
+
 			LIST.showtask(num);
         }
 
