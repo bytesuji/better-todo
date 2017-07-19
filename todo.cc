@@ -16,7 +16,15 @@ void to_lower(string& str) {
 }
 
 int main() {
-	todo_list LIST = serial::load<todo_list>(".tasks.lance");
+	todo_list LIST;
+	try {
+		LIST = serial::load<todo_list>(".tasks.lance");
+    }
+
+	catch (boost::archive::archive_exception e) {
+		serial::dump(LIST, ".tasks.lance");
+    }
+
 	string cmd = "DEFAULT_STRING_STATE";
 
 	cout << "TODO\n";
