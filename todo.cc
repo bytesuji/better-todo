@@ -15,7 +15,6 @@ void to_lower(string& str) {
 int main() {
 	todo_list LIST = serial::load<todo_list>(".tasks.lance");
 	string cmd = "DEFAULT_STRING_STATE";
-	int arg;
 
 	cout << "TODO\n";
 	cout << "-----\n";
