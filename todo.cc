@@ -19,7 +19,7 @@ int main() {
 
 	cout << "TODO\n";
 	cout << "-----\n";
-	cout << "todo> ";
+	cout << " > ";
 
 	while (cin >> cmd) {
 		to_lower(cmd);
@@ -29,7 +29,7 @@ int main() {
 			  cmd == "delete" ||
 			  cmd == "show" || 
 			  cmd == "prioritize" || 
-			  cmd == "DEFAULT_STRING_STATE")) { cerr << "Not a command.\n"; cout << "todo> "; continue; }
+			  cmd == "DEFAULT_STRING_STATE")) { cerr << "Not a command.\n"; cout << " > "; continue; }
 
 		if (cmd == "add") {
 			string name;
@@ -65,12 +65,19 @@ int main() {
 			LIST.prioritize(num, p);
         }
 
+		else if (cmd == "show") {
+			unsigned num;
+			cout << "Which task? ";
+			cin >> num;
+			LIST.show(num);
+        }
+
 		else {
 			cout << "Command not yet implemented.\n";
         }
 
 		serial::dump(LIST, ".tasks.lance");
-		cout << "todo> ";
+		cout << " > ";
 	} 
 
 	return 0;

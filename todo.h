@@ -11,6 +11,7 @@
 using std::string;
 using std::vector;
 using std::cout, std::cin, std::endl;
+using std::ostream;
 
 struct todo_item {
 	template <class Archive>
@@ -23,7 +24,14 @@ struct todo_item {
 	string name;
 	string description;
 	unsigned priority;	
+
 };
+
+ostream operator<<(ostream& out, const todo_item& item) {
+	out << "Name: " << item.name << endl;
+	out << "Description: " << item.description << endl;
+	out << "Priority: " << item.priority << endl;	
+}
 
 class todo_list {
 private:
@@ -60,6 +68,10 @@ public:
 	void prioritize(unsigned n, unsigned prior = 0) {
 		// defaults to highest priority
 		main_list.at(n).priority = prior;
+    }
+
+	void show(unsigned n) {
+		cout << main_list.at(n);
     }
 };
 
