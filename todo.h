@@ -8,6 +8,14 @@
 #include <boost/serialization/vector.hpp>
 #include "serial.h"
 
+#define RED     "\x1b[31m"
+#define YELLOW  "\x1b[33m"
+#define GREEN   "\x1b[32m"
+#define CYAN    "\x1b[36m"
+#define BLUE    "\x1b[34m"
+#define MAGENTA "\x1b[35m"
+#define RESET   "\x1b[0m"
+
 using std::string;
 using std::vector;
 using std::cout, std::cin, std::endl;
@@ -32,6 +40,21 @@ ostream& operator<<(ostream& out, const todo_item& item) {
 	out << "Priority: " << item.priority << endl;	
 
 	return out;
+}
+
+string colorize(const todo_item& ti) {
+	if (ti.priority == 0)
+		return RED;
+	else if (ti.priority == 1)
+		return YELLOW;
+	else if (ti.priority == 2)
+		return GREEN;
+	else if (ti.priority == 3)
+		return CYAN;
+	else if (ti.priority == 4)
+		return BLUE;
+	else if (ti.priority >= 5)
+		return MAGENTA;
 }
 
 class todo_list {
@@ -74,7 +97,8 @@ public:
 	void show() {
 		unsigned cnt = 0;
 		for (auto t: main_list) {
-			cout << cnt << ". " << t.name << endl;	
+			cout << colorize(t);
+			cout << cnt << ". " << t.name << RESET << endl;	
 			++cnt;
         }
     }
@@ -83,7 +107,6 @@ public:
 		cout << main_list.at(n);
     }
 };
-
 
 // TODO 
 // add color based on priority
