@@ -4,7 +4,10 @@
 #include "todo.h"
 #include "serial.h"
 
-using std::cout, std::cerr, std::cin, std::endl;
+using std::cout; 
+using std::cerr;
+using std::cin;
+using std::endl;
 using std::string;
 using std::transform;
 

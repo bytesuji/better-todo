@@ -18,7 +18,9 @@
 
 using std::string;
 using std::vector;
-using std::cout, std::cin, std::endl;
+using std::cout;
+using std::cin;
+using std::endl;
 using std::ostream;
 
 struct todo_item {
