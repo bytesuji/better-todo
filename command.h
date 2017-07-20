@@ -54,7 +54,7 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		LIST.add(name, desc);
 	}	
 
-	else if (cmd == "del" || cmd == "delete" || cmd == "d") { //FIXED
+	else if (cmd == "del" || cmd == "delete" || cmd == "d") {
 		unsigned num;
 		check_input("Which category? ", num);
 		LIST.del(num);

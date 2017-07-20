@@ -76,11 +76,6 @@ public:
 	string name;
 	string desc;
 
-	// todo_list(string n, string d) {
-	// 	name = n;
-	// 	desc = d;
-    // }
-
 	void add(string task, string description = "DEFAULT_DESC", unsigned prior = 3) {
 		if (description == "DEFAULT_DESC")
 			description = task; // make description same as task name if none specified

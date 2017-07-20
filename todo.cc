@@ -42,7 +42,7 @@ int main() {
 			serial::dump(LIST, "/home/albert/.tasks.lance");
 			cout << "State corrupted!\n";
 			exit(-1);
-        }
+		}
 	}
 
 	return 0;
