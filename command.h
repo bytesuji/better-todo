@@ -56,7 +56,7 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 
 	else if (cmd == "del" || cmd == "delete" || cmd == "d") { //FIXED
 		unsigned num;
-		check_input("Which task? ", num);
+		check_input("Which category? ", num);
 		LIST.del(num);
 		cin.ignore();
 	}
@@ -176,10 +176,16 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		cout << "delete, del, d\n";
 		cout << "prioritize, pri, p\n";
 		cout << "show, s\n";
-		cout << "describe, ds";
+		cout << "describe, ds\n";
+		cout << "up, u\n";
 		cout << "quit, q\n";
 		cout << "help, h\n\n";
 	}
+
+	else if (cmd == "up" || cmd == "u") {
+		--cl;
+		cc = 0;
+    }
 
 	else if (cmd == "quit" || cmd == "q") {
 		exit(0);

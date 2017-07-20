@@ -67,6 +67,7 @@ private:
 	void serialize(Archive& ar, const unsigned version) {
 		ar & main_list;
 		ar & name;
+		ar & desc;
     }
 
 	vector<todo_item> main_list;
