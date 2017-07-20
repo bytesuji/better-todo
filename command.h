@@ -36,10 +36,12 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		  cmd == "s" 		||
 		  cmd == "describe" ||
 		  cmd == "ds" 		||
-		  cmd == "read" 	|| 
-		  cmd == "r" 		||
+		  cmd == "view" 	||
+		  cmd == "v" 		||
 		  cmd == "edit" 	||
 		  cmd == "e"		||
+		  cmd == "move"		||
+		  cmd == "m" 		||
 		  cmd == "quit" 	|| 
 		  cmd == "q" 		||
 		  cmd == "help" 	||
@@ -73,9 +75,9 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		cin.ignore();
     }
 
-	else if (cmd == "read" || cmd == "r") {
+	else if (cmd == "view" || cmd == "v") {
 		++cl;
-		check_input("Which list would you like to read? ", cc);
+		check_input("Which list would you like to view? ", cc);
 		cin.ignore();
     }
 
@@ -103,6 +105,15 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
         }
     }
 
+	else if (cmd == "move" || cmd == "m") {
+		unsigned n0;
+		unsigned n1;
+		check_input("Which category would you like to move? ", n0);
+		check_input("To where? ", n1);
+		LIST.swap(n0, n1);
+		cin.ignore();
+    }
+
 	else if (cmd == "show" || cmd == "s") {
 		LIST.show();
 	}
@@ -113,7 +124,8 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		cout << "add, a\n";
 		cout << "delete, del, d\n";
 		cout << "show, s\n";
-		cout << "read, r\n";
+		cout << "view, v\n";
+		cout << "move, m\n";
 		cout << "edit, e\n";
 		cout << "describe, ds\n";
 		cout << "quit, q\n";
@@ -146,6 +158,8 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		  cmd == "p" 			||
 		  cmd == "show" 		|| 
 		  cmd == "s" 			||
+		  cmd == "move"			||
+		  cmd == "m"			||
 		  cmd == "describe" 	|| 
 		  cmd == "ds" 			||
 		  cmd == "edit"			||
@@ -216,15 +230,23 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 			string tmp;
 			cout << "Enter a new name: ";
 			getline(cin, tmp);
-			LIST.at(cc).access(n).name = tmp;
+			LIST.at(cc).at(n).name = tmp;
         }
 
 		else if (type == "d") {
 			string tmp;
 			cout << "Enter a new description: ";
 			getline(cin, tmp);
-			LIST.at(cc).access(n).desc = tmp;
+			LIST.at(cc).at(n).desc = tmp;
         }
+    }
+
+	else if (cmd == "move" || cmd == "m") {
+		unsigned n0;
+		unsigned n1;
+		check_input("Which task would you like to move? ", n0);
+		check_input("To where? ", n1);
+		LIST.at(cc).swap(n0, n1);
     }
 
 	else if (cmd == "h" || cmd == "help") {

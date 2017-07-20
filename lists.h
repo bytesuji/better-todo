@@ -23,6 +23,7 @@ using std::cin;
 using std::cerr;
 using std::endl;
 using std::ostream;
+using std::transform;
 
 const string HOME_DIR = getenv("HOME");
 const string TASK_PATH = HOME_DIR + "/.tasks.lance";
@@ -105,7 +106,7 @@ public:
 		main_list.at(n).priority = prior;
     }
 
-	todo_item& access(unsigned n) {
+	todo_item& at(unsigned n) {
 		return main_list.at(n);
     }
 
@@ -116,6 +117,10 @@ public:
 			cout << cnt << ". " << t.name << RESET << endl;	
 			++cnt;
         }
+    }
+
+	void swap(unsigned n0, unsigned n1) {
+		iter_swap(main_list.begin() + n0, main_list.begin() + n1);
     }
 
 	void showtask(unsigned n) {
@@ -161,6 +166,10 @@ public:
 			cout << cnt << ". " << list.name << endl;
 			++cnt;
         }
+    }
+
+	void swap(unsigned n0, unsigned n1) {
+		iter_swap(collection.begin() + n0, collection.begin() + n1);
     }
 };
 

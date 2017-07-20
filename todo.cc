@@ -11,7 +11,6 @@ using std::cin;
 using std::getline;
 using std::endl;
 using std::string;
-using std::transform;
 
 int main() {
 	list_collection LIST;
