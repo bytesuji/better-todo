@@ -57,9 +57,9 @@ string colorize(const todo_item& ti) {
 }
 
 ostream& operator<<(ostream& out, const todo_item& item) {
-	out << "Name: " << item.name << endl;
-	out << "Description: " << item.desc << endl;
-	out << "Priority: " << item.priority << endl;	
+	out << "Name:\t\t" << item.name << endl;
+	out << "Description:\t" << item.desc << endl;
+	out << "Priority:\t" << item.priority << endl;	
 
 	return out;
 }
