@@ -31,12 +31,12 @@ struct todo_item {
 	template <class Archive>
 	void serialize(Archive& ar, const unsigned version) {
 		ar & name;
-		ar & description;
+		ar & desc;
 		ar & priority;
     }
 
 	string name;
-	string description;
+	string desc;
 	unsigned priority;	
 };
 
@@ -57,7 +57,7 @@ string colorize(const todo_item& ti) {
 
 ostream& operator<<(ostream& out, const todo_item& item) {
 	out << "Name: " << item.name << endl;
-	out << "Description: " << item.description << endl;
+	out << "Description: " << item.desc << endl;
 	out << "Priority: " << item.priority << endl;	
 
 	return out;
@@ -103,6 +103,10 @@ public:
 	void prioritize(unsigned n, unsigned prior = 0) {
 		// defaults to highest priority
 		main_list.at(n).priority = prior;
+    }
+
+	todo_item& access(unsigned n) {
+		return main_list.at(n);
     }
 
 	void show() {

@@ -30,7 +30,7 @@ int main() {
 
 	while (getline(cin, cmd)) {
 		if (cmd.empty()) {
-			cout << " " << current_level << "> ";
+			cout << " > ";
 			continue;
         }		
 

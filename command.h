@@ -3,6 +3,7 @@
 
 #include "lists.h"
 #include <cstdlib>
+#include <boost/algorithm/string.hpp>
 
 void to_lower(string& str) {
 	transform(str.begin(), str.end(), str.begin(), ::tolower);
@@ -24,6 +25,8 @@ void check_input(const char* msg, T& data) {
 
 void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsigned& cl) {
 	to_lower(cmd);
+	boost::trim(cmd);
+
 	if (!(cmd == "add" 		|| 
 		  cmd == "a" 		|| 
 		  cmd == "delete" 	||
@@ -35,6 +38,8 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		  cmd == "ds" 		||
 		  cmd == "read" 	|| 
 		  cmd == "r" 		||
+		  cmd == "edit" 	||
+		  cmd == "e"		||
 		  cmd == "quit" 	|| 
 		  cmd == "q" 		||
 		  cmd == "help" 	||
@@ -74,6 +79,30 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		cin.ignore();
     }
 
+	else if (cmd == "edit" || cmd == "e") {
+		unsigned n;
+		string type;
+		check_input("Which category? ", n);
+		cout << "(N)ame or (d)escription? ";
+		cin >> type;
+		cin.ignore();
+		to_lower(type);
+
+		if (type == "n") {
+			string tmp;
+			cout << "Enter a new name: ";
+			getline(cin, tmp);
+			LIST.at(n).name = tmp;
+        }
+
+		else if (type == "d") {
+			string tmp;
+			cout << "Enter a new description: ";
+			getline(cin, tmp);
+			LIST.at(n).desc = tmp;
+        }
+    }
+
 	else if (cmd == "show" || cmd == "s") {
 		LIST.show();
 	}
@@ -85,6 +114,7 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		cout << "delete, del, d\n";
 		cout << "show, s\n";
 		cout << "read, r\n";
+		cout << "edit, e\n";
 		cout << "describe, ds\n";
 		cout << "quit, q\n";
 		cout << "help, h\n\n";
@@ -104,6 +134,8 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 
 void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsigned& cl) {
 	to_lower(cmd);
+	boost::trim(cmd);
+
 	if (!(cmd == "add" 			|| 
 		  cmd == "a" 			|| 
 		  cmd == "delete" 		||
@@ -116,6 +148,8 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		  cmd == "s" 			||
 		  cmd == "describe" 	|| 
 		  cmd == "ds" 			||
+		  cmd == "edit"			||
+		  cmd == "e"			||
 		  cmd == "quit" 		|| 
 		  cmd == "q" 			||
 		  cmd == "up" 			||
@@ -169,12 +203,37 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		cin.ignore();
 	}
 
+	else if (cmd == "edit" || cmd == "e") {
+		unsigned n;
+		string type;
+		check_input("Which task? ", n);
+		cout << "(N)ame or (d)escription? ";
+		cin >> type;
+		cin.ignore();
+		to_lower(type);
+
+		if (type == "n") {
+			string tmp;
+			cout << "Enter a new name: ";
+			getline(cin, tmp);
+			LIST.at(cc).access(n).name = tmp;
+        }
+
+		else if (type == "d") {
+			string tmp;
+			cout << "Enter a new description: ";
+			getline(cin, tmp);
+			LIST.at(cc).access(n).desc = tmp;
+        }
+    }
+
 	else if (cmd == "h" || cmd == "help") {
 		cout << "\nAvailable commands:\n";
 		cout << "---------------------\n";
 		cout << "add, a\n";
 		cout << "delete, del, d\n";
 		cout << "prioritize, pri, p\n";
+		cout << "edit, e\n";
 		cout << "show, s\n";
 		cout << "describe, ds\n";
 		cout << "up, u\n";
