@@ -27,27 +27,27 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 	to_lower(cmd);
 	boost::trim(cmd);
 
-	if (!(cmd == "add" 		|| 
-		  cmd == "a" 		|| 
-		  cmd == "delete" 	||
-		  cmd == "del" 		||
-		  cmd == "d" 		||
-		  cmd == "show" 	|| 
-		  cmd == "s" 		||
+	if (!(cmd == "add"		||
+		  cmd == "a"		||
+		  cmd == "delete"	||
+		  cmd == "del"		||
+		  cmd == "d"		||
+		  cmd == "show"		||
+		  cmd == "s"		||
 		  cmd == "describe" ||
-		  cmd == "ds" 		||
-		  cmd == "view" 	||
-		  cmd == "v" 		||
-		  cmd == "edit" 	||
+		  cmd == "ds"		||
+		  cmd == "view"		||
+		  cmd == "v"		||
+		  cmd == "edit"		||
 		  cmd == "e"		||
 		  cmd == "move"		||
-		  cmd == "m" 		||
-		  cmd == "quit" 	|| 
-		  cmd == "q" 		||
-		  cmd == "help" 	||
-		  cmd == "h" 		|| 
+		  cmd == "m"		||
+		  cmd == "quit"		||
+		  cmd == "q"		||
+		  cmd == "help"		||
+		  cmd == "h"		||
 		  cmd == "DEFAULT_STRING_STATE")) 
-		  	{ cerr << "Not a command." << endl; cout << " > "; return; }
+			{ cerr << "Not a command." << endl; cout << " > "; return; }
 
 	if (cmd == "add" || cmd == "a") {
 		string name;
@@ -148,32 +148,32 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 	to_lower(cmd);
 	boost::trim(cmd);
 
-	if (!(cmd == "add" 			|| 
-		  cmd == "a" 			|| 
-		  cmd == "delete" 		||
-		  cmd == "del" 			||
-		  cmd == "d" 			||
-		  cmd == "prioritize" 	|| 
-		  cmd == "pri" 			|| 
-		  cmd == "p" 			||
-		  cmd == "show" 		|| 
-		  cmd == "s" 			||
+	if (!(cmd == "add"			||
+		  cmd == "a"			||
+		  cmd == "delete"		||
+		  cmd == "del"			||
+		  cmd == "d"			||
+		  cmd == "prioritize"	||
+		  cmd == "pri"			||
+		  cmd == "p"			||
+		  cmd == "show"			||
+		  cmd == "s"			||
 		  cmd == "move"			||
 		  cmd == "m"			||
-		  cmd == "describe" 	|| 
-		  cmd == "ds" 			||
+		  cmd == "describe"		||
+		  cmd == "ds"			||
 		  cmd == "view"			||
 		  cmd == "v"			||
 		  cmd == "edit"			||
 		  cmd == "e"			||
-		  cmd == "quit" 		|| 
-		  cmd == "q" 			||
-		  cmd == "up" 			||
-		  cmd == "u" 			||
-		  cmd == "help" 		||
-		  cmd == "h" 			|| 
+		  cmd == "quit"			||
+		  cmd == "q"			||
+		  cmd == "up"			||
+		  cmd == "u"			||
+		  cmd == "help"			||
+		  cmd == "h"			||
 		  cmd == "DEFAULT_STRING_STATE")) 
-		  	{ cerr << "Not a command." << endl; cout << " > "; return; }
+			{ cerr << "Not a command." << endl; cout << " > "; return; }
 
 	if (cmd == "add" || cmd == "a") {
 		string name;
