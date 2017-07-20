@@ -37,14 +37,6 @@ struct todo_item {
 	unsigned priority;	
 };
 
-ostream& operator<<(ostream& out, const todo_item& item) {
-	out << "Name: " << item.name << endl;
-	out << "Description: " << item.description << endl;
-	out << "Priority: " << item.priority << endl;	
-
-	return out;
-}
-
 string colorize(const todo_item& ti) {
 	if (ti.priority == 0)
 		return RED;
@@ -58,6 +50,14 @@ string colorize(const todo_item& ti) {
 		return BLUE;
 	else 
 		return MAGENTA;
+}
+
+ostream& operator<<(ostream& out, const todo_item& item) {
+	out << "Name: " << item.name << endl;
+	out << "Description: " << item.description << endl;
+	out << "Priority: " << item.priority << endl;	
+
+	return out;
 }
 
 class todo_list {
@@ -75,10 +75,10 @@ public:
 	string name;
 	string desc;
 
-	todo_list(string n, string d) {
-		name = n;
-		desc = d;
-    }
+	// todo_list(string n, string d) {
+	// 	name = n;
+	// 	desc = d;
+    // }
 
 	void add(string task, string description = "DEFAULT_DESC", unsigned prior = 3) {
 		if (description == "DEFAULT_DESC")
@@ -131,16 +131,19 @@ private:
 	vector<todo_list> collection;
 
 public:
-	todo_list at(unsigned num) {
+	todo_list& at(unsigned num) {
 		return collection.at(num);
     }
 
 	void add(string name, string desc) {
-		collection.push_back(todo_list(name, desc));	
+		todo_list tmp;
+		tmp.name = name;
+		tmp.desc = desc;
+		collection.push_back(tmp);	
     }
 
 	void del(unsigned num) {
-		cout << "Are you sure you want to delete task #" << n << "? ";
+		cout << "Are you sure you want to delete category #" << num << "? ";
 		char resp;
 		cin >> resp;
 		if (resp != 'y')
@@ -157,5 +160,6 @@ public:
         }
     }
 };
+
 
 #endif // LISTS_H

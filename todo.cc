@@ -15,7 +15,7 @@ using std::transform;
 
 int main() {
 	list_collection LIST;
-	try {LIST = serial::load<todo_list>("/home/albert/.tasks.lance");}
+	try {LIST = serial::load<list_collection>("/home/albert/.tasks.lance");}
 	catch (boost::archive::archive_exception e) {
 		serial::dump(LIST, "/home/albert/.tasks.lance");
     }
@@ -26,11 +26,11 @@ int main() {
 
 	cout << "TODO" << endl;
 	cout << "-----" << endl;
-	cout << " " << current_level << "> ";
+	cout << " > ";
 
 	while (getline(cin, cmd)) {
 		if (cmd.empty()) {
-			cout << " > ";
+			cout << " " << current_level << "> ";
 			continue;
         }		
 
@@ -39,8 +39,8 @@ int main() {
 		else if (current_level == 1)
 			handle_lowlevel_arg(cmd, LIST, current_cat, current_level);
 		else {
-			serial::dump(LIST, "/home/albert/.tasks.lance")
-			cout << "State corrupted!\n"
+			serial::dump(LIST, "/home/albert/.tasks.lance");
+			cout << "State corrupted!\n";
 			exit(-1);
         }
 	}

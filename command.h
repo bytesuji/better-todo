@@ -22,27 +22,27 @@ void check_input(const char* msg, T& data) {
     }
 }
 
-void handle_toplevel_arg(string cmd, todo_list LIST, unsigned& cc, unsigned& cl) {
+void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsigned& cl) {
 	to_lower(cmd);
-	if (!(cmd == "add" || 
-		  cmd == "a" || 
-		  cmd == "delete" ||
-		  cmd == "del" ||
-		  cmd == "d" ||
-		  // cmd == "prioritize" || 
-		  // cmd == "pri" || 
-		  // cmd == "p" ||
-		  cmd == "show" || 
-		  cmd == "s" ||
-		  // cmd == "showtask" || 
-		  // cmd == "st" ||
-		  cmd == "quit" || 
-		  cmd == "q" ||
-		  cmd == "help" ||
-		  cmd == "h" || 
-		  cmd == "DEFAULT_STRING_STATE")) { cerr << "Not a command." << endl; cout << " > "; return; }
+	if (!(cmd == "add" 		|| 
+		  cmd == "a" 		|| 
+		  cmd == "delete" 	||
+		  cmd == "del" 		||
+		  cmd == "d" 		||
+		  cmd == "show" 	|| 
+		  cmd == "s" 		||
+		  cmd == "describe" ||
+		  cmd == "ds" 		||
+		  cmd == "read" 	|| 
+		  cmd == "r" 		||
+		  cmd == "quit" 	|| 
+		  cmd == "q" 		||
+		  cmd == "help" 	||
+		  cmd == "h" 		|| 
+		  cmd == "DEFAULT_STRING_STATE")) 
+		  	{ cerr << "Not a command." << endl; cout << " > "; return; }
 
-	if (cmd == "add" || cmd == "a") { //FIXED
+	if (cmd == "add" || cmd == "a") {
 		string name;
 		string desc;
 		
@@ -52,7 +52,6 @@ void handle_toplevel_arg(string cmd, todo_list LIST, unsigned& cc, unsigned& cl)
 		getline(cin, desc);
 
 		LIST.add(name, desc);
-		cin.ignore();
 	}	
 
 	else if (cmd == "del" || cmd == "delete" || cmd == "d") { //FIXED
@@ -62,53 +61,69 @@ void handle_toplevel_arg(string cmd, todo_list LIST, unsigned& cc, unsigned& cl)
 		cin.ignore();
 	}
 
+	else if (cmd == "describe" || cmd == "ds") {
+		unsigned cat;
+		check_input("Which category? ", cat);
+		cout << LIST.at(cat).desc << endl;
+		cin.ignore();
+    }
+
+	else if (cmd == "read" || cmd == "r") {
+		++cl;
+		check_input("Which list would you like to read? ", cc);
+		cin.ignore();
+    }
+
 	else if (cmd == "show" || cmd == "s") {
 		LIST.show();
 	}
 
 	else if (cmd == "h" || cmd == "help") {
-		cout << "\nAvailable top-level commands:\n";
-		cout << "-------------------\n";
+		cout << "\nAvailable commands:\n";
+		cout << "---------------------\n";
 		cout << "add, a\n";
 		cout << "delete, del, d\n";
 		cout << "show, s\n";
+		cout << "read, r\n";
+		cout << "describe, ds\n";
 		cout << "quit, q\n";
 		cout << "help, h\n\n";
 	}
 
 	else if (cmd == "quit" || cmd == "q") {
-		exit
+		exit(0);
 	}
 
 	else {
 		cout << "Command not yet implemented." << endl;
 	}
 
-	serial::dump(LIST, ".tasks.lance");
-	cout << " " << cl << "> ";
+	serial::dump(LIST, "/home/albert/.tasks.lance");
+	cout << " > ";
 }
 
-void handle_lowlevel_arg(string cmd, todo_list LIST, unsigned& cc, unsigned& cl) {
+void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsigned& cl) {
 	to_lower(cmd);
-	if (!(cmd == "add" || 
-		  cmd == "a" || 
-		  cmd == "delete" ||
-		  cmd == "del" ||
-		  cmd == "d" ||
-		  cmd == "prioritize" || 
-		  cmd == "pri" || 
-		  cmd == "p" ||
-		  cmd == "show" || 
-		  cmd == "s" ||
-		  cmd == "showtask" || 
-		  cmd == "st" ||
-		  cmd == "quit" || 
-		  cmd == "q" ||
-		  cmd == "up" ||
-		  cmd == "u" ||
-		  cmd == "help" ||
-		  cmd == "h" || 
-		  cmd == "DEFAULT_STRING_STATE")) { cerr << "Not a command." << endl; cout << " > "; return; }
+	if (!(cmd == "add" 			|| 
+		  cmd == "a" 			|| 
+		  cmd == "delete" 		||
+		  cmd == "del" 			||
+		  cmd == "d" 			||
+		  cmd == "prioritize" 	|| 
+		  cmd == "pri" 			|| 
+		  cmd == "p" 			||
+		  cmd == "show" 		|| 
+		  cmd == "s" 			||
+		  cmd == "showtask" 	|| 
+		  cmd == "st" 			||
+		  cmd == "quit" 		|| 
+		  cmd == "q" 			||
+		  cmd == "up" 			||
+		  cmd == "u" 			||
+		  cmd == "help" 		||
+		  cmd == "h" 			|| 
+		  cmd == "DEFAULT_STRING_STATE")) 
+		  	{ cerr << "Not a command." << endl; cout << " > "; return; }
 
 	if (cmd == "add" || cmd == "a") {
 		string name;
@@ -156,7 +171,7 @@ void handle_lowlevel_arg(string cmd, todo_list LIST, unsigned& cc, unsigned& cl)
 
 	else if (cmd == "h" || cmd == "help") {
 		cout << "\nAvailable commands:\n";
-		cout << "-------------------\n";
+		cout << "---------------------\n";
 		cout << "add, a\n";
 		cout << "delete, del, d\n";
 		cout << "prioritize, pri, p\n";
@@ -174,8 +189,8 @@ void handle_lowlevel_arg(string cmd, todo_list LIST, unsigned& cc, unsigned& cl)
 		cout << "Command not yet implemented." << endl;
 	}
 
-	serial::dump(LIST, ".tasks.lance");
-	cout << " " << cl << "> ";
+	serial::dump(LIST, "/home/albert/.tasks.lance");
+	cout << " > ";
 }
 
 #endif // COMMAND_H
