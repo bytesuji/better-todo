@@ -15,9 +15,9 @@ using std::transform;
 
 int main() {
 	list_collection LIST;
-	try {LIST = serial::load<list_collection>("/home/albert/.tasks.lance");}
+	try {LIST = serial::load<list_collection>(TASK_PATH.c_str());}
 	catch (boost::archive::archive_exception e) {
-		serial::dump(LIST, "/home/albert/.tasks.lance");
+		serial::dump(LIST, TASK_PATH.c_str());
     }
 
 	string cmd = "DEFAULT_STRING_STATE";
@@ -39,7 +39,7 @@ int main() {
 		else if (current_level == 1)
 			handle_lowlevel_arg(cmd, LIST, current_cat, current_level);
 		else {
-			serial::dump(LIST, "/home/albert/.tasks.lance");
+			serial::dump(LIST, TASK_PATH.c_str());
 			cout << "State corrupted!\n";
 			exit(-1);
 		}

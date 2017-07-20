@@ -98,7 +98,7 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		cout << "Command not yet implemented." << endl;
 	}
 
-	serial::dump(LIST, "/home/albert/.tasks.lance");
+	serial::dump(LIST, TASK_PATH.c_str());
 	cout << " > ";
 }
 
@@ -195,7 +195,7 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		cout << "Command not yet implemented." << endl;
 	}
 
-	serial::dump(LIST, "/home/albert/.tasks.lance");
+	serial::dump(LIST, TASK_PATH.c_str());
 	cout << " > ";
 }
 

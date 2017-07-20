@@ -24,6 +24,9 @@ using std::cerr;
 using std::endl;
 using std::ostream;
 
+const string HOME_DIR = getenv("HOME");
+const string TASK_PATH = HOME_DIR + "/.tasks.lance";
+
 struct todo_item {
 	template <class Archive>
 	void serialize(Archive& ar, const unsigned version) {
