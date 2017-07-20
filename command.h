@@ -114,8 +114,8 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		  cmd == "p" 			||
 		  cmd == "show" 		|| 
 		  cmd == "s" 			||
-		  cmd == "showtask" 	|| 
-		  cmd == "st" 			||
+		  cmd == "describe" 	|| 
+		  cmd == "ds" 			||
 		  cmd == "quit" 		|| 
 		  cmd == "q" 			||
 		  cmd == "up" 			||
@@ -161,7 +161,7 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		LIST.at(cc).show();
 	}
 
-	else if (cmd == "showtask" || cmd == "st") {
+	else if (cmd == "describe" || cmd == "ds") {
 		unsigned num;
 		check_input("Which task? ", num);
 
@@ -176,7 +176,7 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		cout << "delete, del, d\n";
 		cout << "prioritize, pri, p\n";
 		cout << "show, s\n";
-		cout << "showtask, st\n";
+		cout << "describe, ds";
 		cout << "quit, q\n";
 		cout << "help, h\n\n";
 	}
