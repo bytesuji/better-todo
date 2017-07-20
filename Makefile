@@ -5,6 +5,6 @@ LDFLAGS = -lboost_serialization
 
 all: $(TARGET)
 $(TARGET): $(TARGET).cc
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(TARGET).cc
+	$(CC) -o $(TARGET) $(TARGET).cc $(CFLAGS) $(LDFLAGS) 
 clean:
 	$(RM) $(TARGET)
