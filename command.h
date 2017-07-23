@@ -27,25 +27,28 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 	to_lower(cmd);
 	boost::trim(cmd);
 
-	if (!(cmd == "add"		||
-		  cmd == "a"		||
-		  cmd == "delete"	||
-		  cmd == "del"		||
-		  cmd == "d"		||
-		  cmd == "show"		||
-		  cmd == "s"		||
-		  cmd == "describe" ||
-		  cmd == "ds"		||
-		  cmd == "view"		||
-		  cmd == "v"		||
-		  cmd == "edit"		||
-		  cmd == "e"		||
-		  cmd == "move"		||
-		  cmd == "m"		||
-		  cmd == "quit"		||
-		  cmd == "q"		||
-		  cmd == "help"		||
-		  cmd == "h"		||
+	if (!(cmd == "add"			||
+		  cmd == "a"			||
+		  cmd == "delete"		||
+		  cmd == "del"			||
+		  cmd == "d"			||
+		  cmd == "show"			||
+		  cmd == "s"			||
+		  cmd == "describe" 	||
+		  cmd == "ds"			||
+		  cmd == "view"			||
+		  cmd == "v"			||
+		  cmd == "edit"			||
+		  cmd == "e"			||
+		  cmd == "move"			||
+		  cmd == "m"			||
+		  cmd == "history"		||
+		  cmd == "h"			||
+		  cmd == "clearhist"	||
+		  cmd == "ch"			||
+		  cmd == "quit"			||
+		  cmd == "q"			||
+		  cmd == "help"			||
 		  cmd == "DEFAULT_STRING_STATE")) 
 			{ cerr << "Not a command." << endl; cout << " > "; return; }
 
@@ -79,6 +82,14 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		++cl;
 		check_input("Which list would you like to view? ", cc);
 		cin.ignore();
+    }
+
+	else if (cmd == "history" || cmd == "h") {
+		LIST.show("history");
+    }
+
+	else if (cmd == "clearhist" || cmd == "ch") {
+		LIST.clear_hist();
     }
 
 	else if (cmd == "edit" || cmd == "e") {
@@ -118,7 +129,7 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		LIST.show();
 	}
 
-	else if (cmd == "h" || cmd == "help") {
+	else if (cmd == "help") {
 		cout << "\nAvailable commands:\n";
 		cout << "---------------------\n";
 		cout << "add, a\n";
@@ -128,8 +139,9 @@ void handle_toplevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 		cout << "move, m\n";
 		cout << "edit, e\n";
 		cout << "describe, ds\n";
+		cout << "history, h\n";
 		cout << "quit, q\n";
-		cout << "help, h\n\n";
+		cout << "help\n\n";
 	}
 
 	else if (cmd == "quit" || cmd == "q") {
@@ -193,7 +205,7 @@ void handle_lowlevel_arg(string cmd, list_collection& LIST, unsigned& cc, unsign
 	else if (cmd == "del" || cmd == "delete" || cmd == "d") {
 		unsigned num;
 		check_input("Which task? ", num);
-		LIST.at(cc).del(num);
+		LIST.at(cc).del(num, LIST); // you don't want to know why LIST is passed
 		cin.ignore();
 	}
 

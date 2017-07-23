@@ -91,13 +91,15 @@ public:
         });
     }	
 
-	void del(unsigned n) {
+	template <class T> // this function is the shittiest hack of all time
+	void del(unsigned n, T& tlist) {
 		cout << "Are you sure you want to delete task #" << n << "? ";
 		char resp;
 		cin >> resp;
 		if (resp != 'y')
 			return;	
 
+		tlist.hist_add(main_list.at(n));
 		main_list.erase(main_list.begin() + n);
     }
 
@@ -134,9 +136,11 @@ private:
 	template <class Archive>
 	void serialize(Archive& ar, const unsigned version) {
 		ar & collection;
+		ar & history;
     }
 
 	vector<todo_list> collection;
+	vector<todo_item> history;
 
 public:
 	todo_list& at(unsigned num) {
@@ -160,11 +164,29 @@ public:
 		collection.erase(collection.begin() + num);
     }
 
-	void show() {
+	void hist_add(todo_item i) {
+		history.push_back(i);
+    }
+
+	void clear_hist() {
+		vector<todo_item> blank;
+		history = blank;
+    }
+
+	void show(string which = "main") {
 		unsigned cnt = 0;
-		for (auto list: collection) {
-			cout << cnt << ". " << list.name << endl;
-			++cnt;
+		if (which == "main") {
+			for (auto list: collection) {
+				cout << cnt << ". " << list.name << endl;
+				++cnt;
+			}
+		}
+
+		else if (which == "history") {
+			for (auto task: history) {
+				cout << cnt << ". " << task.name << endl;
+				++cnt;
+			}
         }
     }
 
@@ -172,6 +194,5 @@ public:
 		iter_swap(collection.begin() + n0, collection.begin() + n1);
     }
 };
-
 
 #endif // LISTS_H
